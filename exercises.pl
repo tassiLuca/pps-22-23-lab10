@@ -84,35 +84,35 @@ seqR2(s(N), O) :- seqR2(N, H), last(H, N, O).
 
 % filterGreaterThan(List, Threshold, FilteredList)
 % Usages:
-%		filterGreaterThan(nil, zero, L). -> yes, L / nil
-% 	filterGreaterThan(cons(zero, nil), zero, L). -> yes, L / nil
-% 	filterGreaterThan(cons(s(zero), cons(zero, cons(s(s(s(zero))), nil))), zero, L). -> yes, L / cons(s(zero),cons(s(s(s(zero))),nil))
+%   filterGreaterThan(nil, zero, L). -> yes, L / nil
+%   filterGreaterThan(cons(zero, nil), zero, L). -> yes, L / nil
+%   filterGreaterThan(cons(s(zero), cons(zero, cons(s(s(s(zero))), nil))), zero, L). -> yes, L / cons(s(zero),cons(s(s(s(zero))),nil))
 filterGreaterThan(nil, _, nil).
 filterGreaterThan(cons(H, T), N, cons(H, O)) :- greater(H, N), filterGreaterThan(T, N, O), !.
 filterGreaterThan(cons(H, T), N, O) :- filterGreaterThan(T, N, O).
 
 % drop(List, N, DroppedList)
 % Usages:
-%		drop(cons(s(zero), cons(s(s(zero)), nil)), zero, L). -> yes, L / cons(s(zero),cons(s(s(zero)),nil))
-% 	drop(cons(s(zero), cons(s(s(zero)), nil)), s(zero), L). -> yes, L / cons(s(s(zero)),nil)
-%		drop(cons(s(zero), cons(s(s(zero)), nil)), s(s(zero)), L). -> yes, L / nil
+%   drop(cons(s(zero), cons(s(s(zero)), nil)), zero, L). -> yes, L / cons(s(zero),cons(s(s(zero)),nil))
+%   drop(cons(s(zero), cons(s(s(zero)), nil)), s(zero), L). -> yes, L / cons(s(s(zero)),nil)
+%   drop(cons(s(zero), cons(s(s(zero)), nil)), s(s(zero)), L). -> yes, L / nil
 drop(nil, _, nil).
 drop(List, zero, List).
 drop(cons(H, T), s(N), O) :- drop(T, N, O).
 
 % take(List, N, ResultList)
 % Usages:
-%		take(cons(s(zero), nil), s(zero), L). -> yes, L / cons(s(zero),nil)
-%		take(cons(s(zero), nil), s(s(zero)), L). -> yes, L / cons(s(zero),nil)
-%		take(cons(s(zero), cons(s(s(zero)), nil)), s(s(zero)), L). -> yes, L / cons(s(zero),cons(s(s(zero)),nil))
+%   take(cons(s(zero), nil), s(zero), L). -> yes, L / cons(s(zero),nil)
+%   take(cons(s(zero), nil), s(s(zero)), L). -> yes, L / cons(s(zero),nil)
+%   take(cons(s(zero), cons(s(s(zero)), nil)), s(s(zero)), L). -> yes, L / cons(s(zero),cons(s(s(zero)),nil))
 take(nil, _, nil).
 take(_, zero, nil).
 take(cons(H, T), s(N), cons(H, O)) :- take(T, N, O).
 
 % zip(List1, List2, ZippedList)
 % Usages:
-%		zip(cons(a, cons(b, nil)), cons(0, cons(1, nil)), L). -> yes, L / cons((a,0),cons((b,1),nil))
-%		zip(cons(a, cons(b, cons(c, nil))), cons(0, cons(1, nil)), L). -> yes, L / cons((a,0),cons((b,1),nil))
+%   zip(cons(a, cons(b, nil)), cons(0, cons(1, nil)), L). -> yes, L / cons((a,0),cons((b,1),nil))
+%   zip(cons(a, cons(b, cons(c, nil))), cons(0, cons(1, nil)), L). -> yes, L / cons((a,0),cons((b,1),nil))
 zip(cons(H1, _), cons(H2, nil), cons((H1, H2), nil)).
 zip(cons(H1, nil), cons(H2, _), cons((H1, H2), nil)).
 zip(cons(H1, T1), cons(H2, T2), cons((H1, H2), O)) :- zip(T1, T2, O).
